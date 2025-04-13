@@ -1,0 +1,10 @@
+2025-04-13 12:45:00 INFO main.go:10: Starting app in development mode
+2025-04-13 12:45:01 INFO main.go:12: Connected to database
+2025-04-13 12:45:05 WARN main.go:20: Cache miss for key user_123
+2025-04-13 12:45:08 ERROR main.go:25: Failed to fetch user data: timeout
+2025-04-13 12:45:12 INFO main.go:30: Shutdown complete
+2025-04-13 12:45:00 INFO main.go:10: Starting app in development mode
+2025-04-13 12:45:01 INFO main.go:12: Connected to database
+2025-04-13 12:45:05 WARN main.go:20: Cache miss for key user_123
+2025-04-13 12:45:08 ERROR main.go:25: Failed to fetch user data: timeout
+2025-04-13 12:45:12 INFO main.go:30: Shutdown complete
