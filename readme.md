@@ -1,3 +1,13 @@
+# Locally install
+```sh
+docker compose build
+docker compose up -d
+```
+- go to http://localhost:3000/
+- log in with admin/admin
+- adding loki as a source in grafana (http://loki:3100)
+- go to explore (loki) and run a query
+
 # AWS commands
 
 ```
