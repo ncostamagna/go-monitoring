@@ -16,3 +16,14 @@ scrape_configs:
         labels:
           job: go-app
           __path__: /var/log/*.log
+    pipeline_stages:
+      - drop:
+          expression: '.*\[GIN-debug\].*'
+      - json:
+          expressions:
+            level: level
+            msg: msg
+            app: app_name
+      - labels:
+          level: level
+          app: app

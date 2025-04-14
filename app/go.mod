@@ -7,7 +7,6 @@ require (
 	github.com/go-kit/kit v0.13.0
 	github.com/joho/godotenv v1.5.1
 	github.com/ncostamagna/go-http-utils v0.0.5
-	github.com/ncostamagna/go-logger-hub v0.0.3
 	github.com/prometheus/client_golang v1.20.5
 )
 

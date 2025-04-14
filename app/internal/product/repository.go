@@ -2,10 +2,9 @@ package product
 
 import (
 	"context"
+	"log/slog"
 	"maps"
 	"slices"
-
-	"github.com/ncostamagna/go-logger-hub/loghub"
 
 	"github.com/ncostamagna/go-monitoring/app/internal/domain"
 )
@@ -26,12 +25,12 @@ type (
 	}
 	repo struct {
 		db  db
-		log loghub.Logger
+		log *slog.Logger
 	}
 )
 
 // NewRepo is a repositories handler.
-func NewRepo(l loghub.Logger) Repository {
+func NewRepo(l *slog.Logger) Repository {
 	return &repo{
 		db: db{
 			products: make(map[int]domain.Product),
@@ -56,6 +55,7 @@ func (r *repo) Get(_ context.Context, id int) (*domain.Product, error) {
 
 	prod, ok := r.db.products[id]
 	if !ok {
+		r.log.Error("product not found", "id", id)
 		return nil, ErrNotFound{id}
 	}
 

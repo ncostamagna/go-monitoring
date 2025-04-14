@@ -23,6 +23,8 @@ const (
 
 func NewHTTPServer(_ context.Context, endpoints product.Endpoints) http.Handler {
 
+	gin.SetMode(gin.ReleaseMode)
+
 	r := gin.Default()
 
 	opts := []httptransport.ServerOption{

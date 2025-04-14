@@ -11,3 +11,4 @@ cdk.out
 *.pem
 .env
 *.idea
+app/logs/*

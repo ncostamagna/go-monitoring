@@ -1,10 +1,7 @@
 package main
 
 import (
-	"log"
 	"time"
-
-	"github.com/ncostamagna/go-monitoring/app/pkg/bootstrap"
 
 	"github.com/ncostamagna/go-monitoring/app/pkg/instance"
 
@@ -16,6 +13,7 @@ import (
 	"github.com/joho/godotenv"
 	"github.com/ncostamagna/go-monitoring/app/internal/product"
 	"github.com/ncostamagna/go-monitoring/app/pkg/handler"
+	"github.com/ncostamagna/go-monitoring/app/pkg/log"
 )
 
 const writeTimeout = 10 * time.Second
@@ -24,9 +22,15 @@ const defaultURL = "0.0.0.0:80"
 
 func main() {
 
+	logger := log.New(log.Config{
+		AppName:   "product-service",
+		Level:     "debug",
+		AddSource: true,
+	})
+
 	defer func() {
 		if r := recover(); r != nil {
-			log.Printf("Application panicked: %v", r)
+			logger.Error("Application panicked", "err", r)
 		}
 	}()
 
@@ -35,7 +39,6 @@ func main() {
 	flag.Parse()
 	ctx := context.Background()
 
-	logger := bootstrap.NewLogger()
 	productSrv := instance.NewProductService(logger)
 
 	pagLimDef := "30"
@@ -57,13 +60,13 @@ func main() {
 	errs := make(chan error)
 
 	go func() {
-		log.Println("listening on " + url)
+		logger.Info("Listening", "url", url)
 		errs <- srv.ListenAndServe()
 	}()
 
 	err := <-errs
 	if err != nil {
-		log.Println(err)
+		logger.Error("Error server", "err", err)
 	}
 
 }

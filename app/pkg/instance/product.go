@@ -1,15 +1,16 @@
 package instance
 
 import (
+	"log/slog"
+
 	kitprometheus "github.com/go-kit/kit/metrics/prometheus"
-	"github.com/ncostamagna/go-logger-hub/loghub"
 	"github.com/ncostamagna/go-monitoring/app/internal/product"
 	stdprometheus "github.com/prometheus/client_golang/prometheus"
 )
 
 const METHOD = "method"
 
-func NewProductService(logger loghub.Logger) product.Service {
+func NewProductService(logger *slog.Logger) product.Service {
 
 	fieldKeys := []string{METHOD}
 	repository := product.NewRepo(logger)

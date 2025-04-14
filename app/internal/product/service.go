@@ -2,8 +2,7 @@ package product
 
 import (
 	"context"
-
-	"github.com/ncostamagna/go-logger-hub/loghub"
+	"log/slog"
 
 	"github.com/ncostamagna/go-monitoring/app/internal/domain"
 )
@@ -23,13 +22,13 @@ type (
 	}
 
 	service struct {
-		log  loghub.Logger
+		log  *slog.Logger
 		repo Repository
 	}
 )
 
 // NewService is a service handler.
-func NewService(l loghub.Logger, repo Repository) Service {
+func NewService(l *slog.Logger, repo Repository) Service {
 	return &service{
 		log:  l,
 		repo: repo,
@@ -47,7 +46,7 @@ func (s service) Store(ctx context.Context, name, description string, price floa
 	if err := s.repo.Store(ctx, product); err != nil {
 		return nil, err
 	}
-
+	s.log.Info("product stored", "product", product)
 	return product, nil
 }
 
@@ -56,6 +55,7 @@ func (s service) GetAll(ctx context.Context, _ Filters, offset, limit int) ([]do
 	if err != nil {
 		return nil, err
 	}
+	s.log.Info("products retrieved", "products", products)
 	return products, nil
 }
 
@@ -64,6 +64,7 @@ func (s service) Get(ctx context.Context, id int) (*domain.Product, error) {
 	if err != nil {
 		return nil, err
 	}
+	s.log.Info("product retrieved", "product", product)
 	return product, nil
 }
 
@@ -73,6 +74,7 @@ func (s service) Delete(ctx context.Context, id int) error {
 		return err
 	}
 
+	s.log.Info("product deleted", "id", id)
 	return nil
 }
 
@@ -80,6 +82,7 @@ func (s service) Update(ctx context.Context, id int, name, description *string, 
 	if err := s.repo.Update(ctx, id, name, description, price); err != nil {
 		return err
 	}
+	s.log.Info("product updated", "id", id, "name", name, "description", description, "price", price)
 	return nil
 }
 
