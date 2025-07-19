@@ -24,3 +24,6 @@ aws ec2 stop-instances --profile costamagna-admin --region us-east-1 --instance-
 
 # Doc
 notion page: https://www.notion.so/Prometheus-17630008732a80939106c2eded1cae01
+
+# Promtail
+Promtail is an open-source log collection agent created by Grafana Labs, designed to work seamlessly with Loki, Grafana’s log aggregation system. Promtail’s main role is to gather logs from various sources, process them, and send them to a Loki server, where they can be queried and visualized in Grafana.
